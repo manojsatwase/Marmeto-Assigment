@@ -1,0 +1,218 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+ font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+ line-height: 1.5;
+ font-weight: 400;
+}
+
+.tabs {
+    background-color: #F2F2F2;
+    width: 795px;
+    height: 50px;
+    margin: 10px auto;
+    border-radius: 8px;
+    display: flex; 
+    position: relative;
+}
+/* .tab-btn{
+ width: 33.33%;
+ position: relative;
+} */
+.tabs img{
+  width: 54px;
+  position: relative;
+  left: 23%;
+} 
+.tabs button {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    width: 33.33%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+    flex-grow: 1;  
+    font-size: 1.2rem;
+}
+
+.tabs button.active-tab {
+    background-color: #000000;
+    color: #fff;
+}
+
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 20px;
+    margin:3rem 2rem;
+}
+.product-card {
+    padding: 10px;
+    background-color: #fff;
+    position: relative;
+    width: 100%;
+    max-width: 480px; 
+    border-radius: 8px; 
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    max-height: 400px; 
+    object-fit: cover;
+    border-radius: 8px; 
+}
+
+ul {
+    list-style-type: disc; 
+    margin-left: 20px; 
+}
+
+ul li {
+    margin-bottom: 8px;
+}
+
+.badge {
+    background-color: #fff;
+    color: #202020;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: absolute;
+    left: 1.2rem;
+    top: 1rem;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: all 0.3s linear;
+}
+
+.product-card:hover .badge{
+    opacity: 1;
+}
+
+.details h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.product-title{
+    display: flex;
+    gap: 1rem;
+}
+
+.product-price{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.vendor,
+.price,
+.compare-price,
+.discount {
+    margin-bottom: 5px;
+}
+
+.compare-price{
+    text-decoration: line-through;
+    color: gray;
+}
+.discount{
+    color: red;
+}
+
+.add-to-cart{
+    width: 100%;
+    height: 45px;
+    background-color: #202020;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.skeleton-box {
+    width: 100%;
+    height: 20rem; 
+    display: block;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 80%
+    ),
+    #efefef;
+    background-repeat: repeat-y;
+    background-size: 50px 500px;
+    background-position: 0 0;
+    animation: shine 1s infinite;
+}
+
+@keyframes shine {
+    to {
+        background-position: 100% 0;
+    }
+}
+
+
+
+/* Media query for tablet screens (768px to 1024px) */
+@media only screen and (max-width: 767px)  {
+    .tabs{
+        width: 340px;
+    }
+    .tabs button {
+        font-size: 1rem;
+    }
+    .product-card img{
+       max-height: 100%;
+    }
+    .product-price{
+        gap: 0.7rem;
+    }
+    .details h2{
+        font-size: 14px;
+    }
+    .vendor, .price, .compare-price, .discount{
+        font-size: 0.8rem;
+    }
+}
+
+/* Media query for desktop screens (above 1025px) */
+@media only screen and (min-width: 768px) and (max-width:1024px){
+    .tabs{
+        width: 580px;
+    }
+    .product-price{
+        gap: 1.5rem;
+    }
+    .details h2{
+        font-size: 0.9rem;
+    }
+    .product-card img{
+        max-height: 256px;
+    }
+    
+}
+/* Media query for desktop screens (above 1025px) */
+@media only screen and (min-width:1024px) and (max-width:1400px){
+    .product-card img{
+        max-height: 347px;
+    }
+    .vendor, .price, .compare-price, .discount{
+        font-size: 0.9rem;
+    }
+}
+
+.tab-btn{
+    background-repeat: no-repeat;
+    background-size: 65px 55px; 
+    background-position: center left ;
+    padding-left: 30px; 
+}
