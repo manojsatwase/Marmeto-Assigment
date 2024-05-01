@@ -19,10 +19,7 @@ body{
     display: flex; 
     position: relative;
 }
-/* .tab-btn{
- width: 33.33%;
- position: relative;
-} */
+
 .tabs img{
   width: 54px;
   position: relative;
