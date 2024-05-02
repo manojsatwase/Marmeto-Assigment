@@ -1,34 +1,16 @@
+import { fetchProducts } from '../api/fetchProducts.js';
 import TruncateString from './common.js';
-import ShimmerEffect from './shimmerEffect.js';
+import displayTabsBtn from './displayTabsBtn.js';
 
 const productModule = (() => {
     const productContainer = document.getElementById('productContainer');
- 
-    const clearProductContainer = () => {
-        productContainer.innerHTML = '';
-    };
-    
-    const fetchProducts = async () => {
-        try {
-            ShimmerEffect();
-            const response = await fetch('https://cdn.shopify.com/s/files/1/0564/3685/0790/files/multiProduct.json');
-            const data = await response.json();
-            clearProductContainer();
-            return data.categories;
-        } catch (error) {
-            console.error('Error fetching products:', error);
-            return [];
-        }
-    };
-
-
+  
     const renderProductCard = (product) => {
         const { image, badge_text, title, price, compare_at_price } = product;
         const discount = ((compare_at_price - price) / compare_at_price) * 100;
 
         const productCard = `
             <div class="product-card">
-
                <img src="${image}" alt="${title}">
                <span class="badge">${badge_text ? badge_text : "On offer"}</span>
            
@@ -50,48 +32,57 @@ const productModule = (() => {
         `;
         productContainer.innerHTML += productCard;
     };
-   
 
     const initializeTabs = async () => {
-        const tabs = document.querySelectorAll('.tabs button');
+        const tabs = document.querySelectorAll('.tab-btn');
         let activeTab = null;
-
+    
+        const products = await fetchProducts();
+        const menProducts = products?.find(categoryData => categoryData.category_name.toLowerCase() === 'men')?.category_products;
+        menProducts?.forEach(product => renderProductCard(product));
+    
         tabs.forEach(tab => {
             tab.addEventListener('click', async () => {
                 // Clear active class from all tabs
                 tabs.forEach(tab => tab.classList.remove('active-tab'));
                 // Add active class to clicked tab
                 tab.classList.add('active-tab');
-
-                 // Clear background image from previous active tab
+    
+                // Clear background image from previous active tab
                 if (activeTab) {
-                  activeTab.style.backgroundImage = 'none';
-                 }
-               
+                    activeTab.style.backgroundImage = 'none';
+                }
+    
                 const category = tab.textContent.toLowerCase();
-
+    
                 // Set the background image dynamically based on the category
                 if (category === 'men') {
                     tab.style.backgroundImage = 'url("../images/male.png")';
-                    
                 } else if (category === 'women') {
                     tab.style.backgroundImage = 'url("../images/female.png")';
                 } else if (category === 'kids') {
                     tab.style.backgroundImage = 'url("../images/kits.png")';
                 }
-
+    
                 activeTab = tab;
-
-                const products = await fetchProducts();
+    
                 const filteredProducts = products?.find(categoryData => categoryData.category_name.toLowerCase() === category)?.category_products;
+                productContainer.innerHTML = ''; // Clear existing products
                 filteredProducts?.forEach(product => renderProductCard(product));
             });
         });
-
-        // Simulate a click on the "Men" tab by default
-        const menTab = document.getElementById('menTab');
-        menTab.click();
+    
+        // Simulate a click on the "Men" tab if it exists
+        const menTab = document.getElementById('MenTab'); // Update the ID based on your HTML
+        if (menTab) {
+            menTab.click(); // Trigger click event on "Men" tab
+        } 
     };
+    
+    document.addEventListener('DOMContentLoaded', async () => {
+        await displayTabsBtn();
+        initializeTabs();
+    });
 
     return { initializeTabs };
 })();
