@@ -1,7 +1,5 @@
 import productModule from './modules/productModule.js';
 
-(function() {
-    document.addEventListener('DOMContentLoaded', () => {
-        productModule.initializeTabs();
-    });
-})();
+document.addEventListener('DOMContentLoaded', async () => {
+    await productModule.initializeTabs(); // Wait for tabs to be initialized
+});
